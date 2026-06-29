@@ -1,7 +1,7 @@
 <div align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png" width="50"/> &nbsp;&nbsp;&nbsp;
-  <img src="https://upload.wikimedia.org/wikipedia/commons/7/77/Streamlit-logo-primary-colormark-darktext.png" height="50"/> &nbsp;&nbsp;&nbsp;
-  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/05/DuckDB_logo.svg/1200px-DuckDB_logo.svg.png" height="50"/>
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" />
+  <img src="https://img.shields.io/badge/DuckDB-FFF000?style=for-the-badge" />
   
   # Touchpoint Business Intelligence Architecture
   **Executive Dashboard & Predictive Analytics Case Study**
