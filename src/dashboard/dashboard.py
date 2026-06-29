@@ -77,6 +77,7 @@ def render_header():
     st.markdown("<p style='color:#94A3B8; font-size:1.1em;'>Executive Summary: Revenue Evolution, Market Positioning & AI Forecasting</p>", unsafe_allow_html=True)
     st.markdown("<hr>", unsafe_allow_html=True)
 
+@st.cache_data(show_spinner=False)
 def build_waterfall(df_cy, df_py, rev_cy, rev_py):
     if rev_py > 0 and rev_cy > 0:
         cat_py = df_py.groupby('Brand')['Revenue'].sum()
@@ -97,6 +98,7 @@ def build_waterfall(df_cy, df_py, rev_cy, rev_py):
         return fig
     return None
 
+@st.cache_data(show_spinner=False)
 def ml_forecast(df):
     df_monthly = df.set_index('Date').resample('MS')['Revenue'].sum().reset_index().rename(columns={'Date':'YearMonth'})
     
