@@ -4,4 +4,5 @@ duckdb
 plotly
 xgboost
 numpy
+scikit-learn
 fpdf2
