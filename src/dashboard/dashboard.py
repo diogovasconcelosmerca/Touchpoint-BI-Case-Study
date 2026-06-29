@@ -25,9 +25,13 @@ def load_css():
     """, unsafe_allow_html=True)
 
 # --- DATA ENGINE (Native ELT Output) ---
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+DB_PATH = os.path.join(BASE_DIR, 'data', 'processed', 'gold_layer.duckdb')
+
 @st.cache_data(ttl=60) # Added TTL to bypass Streamlit's aggressive caching
 def load_data():
-    conn = duckdb.connect('gold_layer.duckdb', read_only=True)
+    conn = duckdb.connect(DB_PATH, read_only=True)
     query = """
         SELECT 
             f.DateKey, f.StoreID, f.ITEMCODE, f."Vendas Valor" as Revenue, f."Vendas Unidades" as Volume,

@@ -2,8 +2,9 @@ import duckdb
 import os
 import pandas as pd
 
-DATA_DIR = "data"
-OUTPUT_DIR = "."
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+DATA_DIR = os.path.join(BASE_DIR, 'data', 'raw')
+OUTPUT_DIR = os.path.join(BASE_DIR, 'data', 'processed')
 DB_PATH = os.path.join(OUTPUT_DIR, 'gold_layer.duckdb')
 
 print("Starting ELT Pipeline - Native DuckDB Engine")

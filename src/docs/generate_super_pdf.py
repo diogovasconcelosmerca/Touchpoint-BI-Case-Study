@@ -169,7 +169,9 @@ def create_super_pdf():
     pdf.chapter_body(t10)
 
     # Save to the specific folder
-    out_dir = "."
+    import os
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    out_dir = BASE_DIR
     os.makedirs(out_dir, exist_ok=True)
     out_path = os.path.join(out_dir, "Super_Guia_Tecnico_Touchpoint.pdf")
     pdf.output(out_path)
