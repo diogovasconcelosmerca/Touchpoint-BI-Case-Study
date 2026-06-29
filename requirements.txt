@@ -3,4 +3,5 @@ pandas
 duckdb
 plotly
 xgboost
+numpy
 fpdf2
