@@ -31,7 +31,14 @@ DB_PATH = os.path.join(BASE_DIR, 'data', 'processed', 'gold_layer.duckdb')
 
 @st.cache_data(ttl=60) # Added TTL to bypass Streamlit's aggressive caching
 def load_data():
-    conn = duckdb.connect(DB_PATH, read_only=True)
+    try:
+        conn = duckdb.connect(DB_PATH, read_only=True)
+    except Exception as e:
+        st.warning(f"Database version mismatch detected. Rebuilding Native DuckDB engine on the fly...")
+        import subprocess
+        etl_script = os.path.join(BASE_DIR, 'src', 'etl', 'etl_pipeline.py')
+        subprocess.run(["python", etl_script], check=True)
+        conn = duckdb.connect(DB_PATH, read_only=True)
     query = """
         SELECT 
             f.DateKey, f.StoreID, f.ITEMCODE, f."Vendas Valor" as Revenue, f."Vendas Unidades" as Volume,
