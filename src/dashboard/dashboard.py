@@ -276,9 +276,13 @@ with tab_dashboard:
 
     col_c, col_d = st.columns(2)
     with col_c:
-        st.markdown("### 🏆 <b>Top Active Cities</b>", unsafe_allow_html=True)
-        fig_city = px.bar(df.groupby('City')['Revenue'].sum().reset_index().nlargest(6, 'Revenue'), x='Revenue', y='City', orientation='h', color='Revenue', color_continuous_scale='teal')
-        fig_city.update_layout(plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', font_color='#e2e8f0', yaxis={'categoryorder':'total ascending'}, coloraxis_showscale=False, margin=dict(t=10, b=0, l=0, r=0)); fig_city.update_xaxes(title=""); fig_city.update_yaxes(title="")
+        st.markdown("### 🗺️ <b>Geographic Revenue Map</b>", unsafe_allow_html=True)
+        city_coords = {'Fargo': (46.8772, -96.7898), 'Milwaukee': (43.0389, -87.9065), 'Omaha': (41.2565, -95.9345), 'Detroit': (42.3314, -83.0458), 'Minneapolis': (44.9778, -93.2650)}
+        df_city_agg = df.groupby('City')['Revenue'].sum().reset_index()
+        df_city_agg['lat'] = df_city_agg['City'].map(lambda x: city_coords.get(x, (39.82, -98.57))[0])
+        df_city_agg['lon'] = df_city_agg['City'].map(lambda x: city_coords.get(x, (39.82, -98.57))[1])
+        fig_city = px.scatter_geo(df_city_agg, lat='lat', lon='lon', size='Revenue', color='Revenue', hover_name='City', scope='usa', color_continuous_scale='teal', size_max=40)
+        fig_city.update_layout(plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', font_color='#e2e8f0', coloraxis_showscale=False, geo=dict(bgcolor='rgba(0,0,0,0)', lakecolor='rgba(0,0,0,0)', landcolor='rgba(255,255,255,0.05)'), margin=dict(t=10, b=0, l=0, r=0))
         st.plotly_chart(fig_city, use_container_width=True)
 
     with col_d:
